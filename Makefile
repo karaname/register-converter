@@ -14,3 +14,9 @@ count.o: count.c
 
 clean:
 	rm -f *.o
+
+install:
+	install ./converter /usr/local/bin
+
+uninstall:
+	rm -rf /usr/local/bin/converter
