@@ -1,7 +1,7 @@
 # Makefile for Converter project
 
 program: main.o conv.o count.o
-	gcc -o converter main.o conv.o count.o
+	gcc -o rcnv main.o conv.o count.o
 
 main.o: main.c
 	gcc -g3 -c main.c
@@ -16,7 +16,7 @@ clean:
 	rm -f *.o
 
 install:
-	install ./converter /usr/local/bin
+	install ./rcnv /usr/local/bin
 
 uninstall:
-	rm -rf /usr/local/bin/converter
+	rm -rf /usr/local/bin/rcnv

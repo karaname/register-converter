@@ -4,49 +4,49 @@
 
 #include <stdio.h>
 
-void count()
+void count(char *arr)
 {
-  char state;
-  int anumber, even, odd;
-  int achar, asymb, aletter, aword, aline, value;
+  int ai, si, anumber, even, odd;
+  int achar, asymb, aspace, aletter;
+
+  char special_symbols[31] = {
+    '`',  '~',  '!',  '@',  '#',  '$',  '%',  '^',  '&',
+    '*',  '(',  ')',  '_',  '+',  '\'', '\"', '{',  '}',
+    ':',  ';',  ',',  '.',  '/',  '\\', '?',  '<',  '>',
+    '|',  '=',  '-',  ' '
+  };
 
   anumber = even = odd = 0;
-  achar = asymb = aletter = aword = aline = 0;
+  achar = asymb = aspace = aletter = 0;
 
-  #define NUMBER 1
-  #define CHAR 0
-
-  printf("Enter something. CTRL + D - EOF\n\n");
-  while ((value = getchar()) != EOF) {
+  for (ai = 0; arr[ai] != '\0'; ai++ ) {
     // all chars
-    if (value >= 33 && value <= 126) achar++;
+    if (arr[ai] >= 32 && arr[ai] <= 126) achar++;
 
     // special symbols
-    if (value == ' ' || value == '\n' || value == '\t') asymb++;
-
-    // letters A - Z  or  a - z
-    if ((value >= 65 && value <= 90) || (value >= 97 && value <= 122)) {
-      state = CHAR;
-      if (value != ' ') aletter++;
+    for (si = 0; special_symbols[si] != '\0'; si++) {
+      if (arr[ai] == special_symbols[si]) asymb++;
     }
 
-    // words
-    if ((state != NUMBER) && (value == '\n' || value == ' ')) aword++;
+    // spaces
+    if (arr[ai] == ' ') ++aspace;
 
-    // lines
-    if (value == '\n') aline++;
+    // letters A - Z  or  a - z
+    if ((arr[ai] >= 65 && arr[ai] <= 90) || (arr[ai] >= 97 && arr[ai] <= 122)) {
+      aletter++;
+    }
 
     // numbers
-    if (value >= 48 && value <= 57) {
-      state = NUMBER;
+    if (arr[ai] >= 48 && arr[ai] <= 57) {
       anumber++;
 
       // even / odd
-      (value % 2 == 0) ? even++ : odd++;
+      (arr[ai] % 2 == 0) ? even++ : odd++;
     }
   }
 
-  printf("\nchars - %-3d / letters - %-3d / special symbols - %d\n", achar, aletter, asymb);
-  printf("words - %-3d / lines - %-5d / numbers - %d\n", aword, aline, anumber);
-  printf("even numbers - %d / odd numbers - %d\n", even, odd);
+  printf("-------------------------------------------------------");
+  printf("\n total chars     - %-5d / letters - %d\n", achar, aletter);
+  printf(" special symbols - %-5d / spaces  - %d\n", asymb, aspace);
+  printf(" numbers         - %-5d / even    - %-5d / odd - %d\n", anumber, even, odd);
 }

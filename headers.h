@@ -1,5 +1,3 @@
-void lowercase(char *arr);
-void uppercase(char *arr);
-void reverse(char *arr);
-void title(char *arr);
-void count();
+void conv_reg(int n);
+void count(char *arr);
+void usage(int status);

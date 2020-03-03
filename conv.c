@@ -1,79 +1,95 @@
 /* conv.c
-   Conversion text to lowercase / uppercase / title / reverse
+   Conversion text to title / reverse / lowercase / uppercase
 */
 
 #include <stdio.h>
+#include <stdlib.h>
+#include "headers.h"
 
-void input(char *value)
+char *input(char *value)
 {
-  scanf("%50[^\n]", value);
+  // " %[]" - skip optional space (enter)
+  scanf(" %[^\n]", value);
+
+  if (value[0] == '\0')
+    usage(EXIT_FAILURE);
+
+  return value;
 }
 
-void lowercase(char *arr)
+void conv_reg(int n)
 {
-  puts("Enter uppercase words:\n");
-  input(arr); int i;
-
-  for (i = 0; arr[i] != '\0'; i++) {
-    if (arr[i] >= 65 && arr[i] <= 90)
-      arr[i] += 32; // (A - Z) -> a -z
-  }
-
-  arr[i] = '\0';
-  printf("\n%s\n", arr);
-}
-
-void uppercase(char *arr)
-{
-  puts("Enter lowercase words:\n");
-  input(arr); int i;
-
-  for (i = 0; arr[i] != '\0'; i++) {
-    if (arr[i] >= 97 && arr[i] <= 122)
-      arr[i] -= 32; // (a - z) -> A - Z
-  }
-
-  arr[i] = '\0';
-  printf("\n%s\n", arr);
-}
-
-void title(char *arr)
-{
-  puts("Enter lowercase sentence:\n");
-  input(arr); int i;
-
-  // conversion first symbol
-  if (arr[0] >= 97 && arr[0] <= 122) arr[0] -= 32;
-
-  for (i = 0; arr[i] != '\0'; i++) {
-    if (arr[i] == ' ' && i++)
-      if (arr[i] >= 97 && arr[i] <= 122)
-        arr[i] -= 32;
-  }
-
-  arr[i] = '\0';
-  printf("\n%s\n", arr);
-}
-
-
-void reverse(char *arr)
-{
-  puts("Enter words:\n");
-  input(arr);
-
   char reverse[50];
-  int i, begin, end;
+  char value[50];
+  char *arr;
+  int i;
 
-  // i -> length
-  for (i = 0; arr[i] != '\0'; i++);
-  end = i - 1;
-
-  for (begin = 0; begin < i; ++begin) {
-    reverse[begin] = arr[end];
-    end--;
+  if (n == 2) { // only count
+    arr = input(value);
+    count(arr);
   }
 
-  // end of reverse list
-  reverse[i] = '\0';
-  printf("\n%s\n", reverse);
+  if (n == 3) {
+    puts("lowercase -> title\n");
+    arr = input(value);
+
+    // first symbol
+    if (arr[0] >= 97 && arr[0] <= 122) arr[0] -= 32;
+
+    // other
+    for (i = 0; arr[i] != '\0'; i++) {
+      if (arr[i] == ' ' && i++)
+        if (arr[i] >= 97 && arr[i] <= 122)
+          arr[i] -= 32;
+    }
+
+    printf("\n%s\n", arr);
+    count(arr);
+  }
+
+  if (n == 4) {
+    int i, begin, end;
+
+    puts("symbols -> reverse\n");
+    arr = input(value);
+
+    // i -> length
+    for (i = 0; arr[i] != '\0'; i++);
+    end = i - 1;
+
+    for (begin = 0; begin < i; ++begin) {
+      reverse[begin] = arr[end];
+      end--;
+    }
+
+    reverse[i] = '\0';
+    printf("\n%s\n", reverse);
+    count(arr);
+  }
+
+  if (n == 5) {
+    puts("uppercase -> lowercase\n");
+    arr = input(value);
+
+    for (i = 0; arr[i] != '\0'; i++) {
+      if (arr[i] >= 65 && arr[i] <= 90)
+        arr[i] += 32; // (A - Z) -> a -z
+    }
+
+    printf("\n%s\n", arr);
+    count(arr);
+  }
+
+  if (n == 6) {
+    puts("lowercase -> uppercase\n");
+    arr = input(value);
+
+    for (i = 0; arr[i] != '\0'; i++) {
+      if (arr[i] >= 97 && arr[i] <= 122)
+        arr[i] -= 32; // (a - z) -> A - Z
+    }
+
+    printf("\n%s\n", arr);
+    count(arr);
+  }
 }

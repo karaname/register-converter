@@ -40,7 +40,6 @@ Text conversion and counting\n\
 int main(int argc, char *argv[])
 {
   int opt, cell;
-  char value[50];
 
   /*
   char *program_name;
@@ -72,11 +71,8 @@ int main(int argc, char *argv[])
   }
 
   if (cell == N_HELP) usage(EXIT_SUCCESS);
-  if (cell == N_COUNT) count();
-  if (cell == N_TITLE) title(value);
-  if (cell == N_REVERSE) reverse(value);
-  if (cell == N_LOWERCASE) lowercase(value);
-  if (cell == N_UPPERCASE) uppercase(value);
+  if (cell & (N_COUNT | N_TITLE | N_REVERSE | N_LOWERCASE | N_UPPERCASE))
+      conv_reg(cell);
 
   return 0;
 }
