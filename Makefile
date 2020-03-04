@@ -1,6 +1,6 @@
-# Makefile for Converter project
+# Makefile for Register-Converter project
 
-program: main.o conv.o count.o
+rcnv: main.o conv.o count.o
 	gcc -o rcnv main.o conv.o count.o
 
 main.o: main.c

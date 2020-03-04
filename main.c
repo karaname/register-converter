@@ -1,4 +1,4 @@
-/* converter - text conversion and counting
+/* rcnv - text conversion and counting
    Project for learning C programming
    Rekhov Kirill / 29 - February 2020
 */
@@ -14,7 +14,7 @@
 #define N_REVERSE 4
 #define N_LOWERCASE 5
 #define N_UPPERCASE 6
-#define PROGRAM_NAME "converter"
+#define PROGRAM_NAME "rcnv"
 
 void usage(int status)
 {
