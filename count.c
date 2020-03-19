@@ -6,42 +6,30 @@
 
 void count(char *arr)
 {
-  int ai, si, anumber, even, odd;
+  int i, anumber, even, odd;
   int achar, asymb, aspace, aletter;
-
-  char special_symbols[31] = {
-    '`',  '~',  '!',  '@',  '#',  '$',  '%',  '^',  '&',
-    '*',  '(',  ')',  '_',  '+',  '\'', '\"', '{',  '}',
-    ':',  ';',  ',',  '.',  '/',  '\\', '?',  '<',  '>',
-    '|',  '=',  '-',  ' '
-  };
 
   anumber = even = odd = 0;
   achar = asymb = aspace = aletter = 0;
 
-  for (ai = 0; arr[ai] != '\0'; ai++ ) {
+  for (i = 0; arr[i] != '\0'; i++ ) {
     // all chars
-    if (arr[ai] >= 32 && arr[ai] <= 126) achar++;
+    if (arr[i] >= 32 && arr[i] <= 126) achar++;
 
-    // special symbols
-    for (si = 0; special_symbols[si] != '\0'; si++) {
-      if (arr[ai] == special_symbols[si]) asymb++;
-    }
-
-    // spaces
-    if (arr[ai] == ' ') ++aspace;
-
-    // letters A - Z  or  a - z
-    if ((arr[ai] >= 65 && arr[ai] <= 90) || (arr[ai] >= 97 && arr[ai] <= 122)) {
-      aletter++;
-    }
-
-    // numbers
-    if (arr[ai] >= 48 && arr[ai] <= 57) {
+    // other
+    if (arr[i] >= 48 && arr[i] <= 57) {
       anumber++;
-
       // even / odd
-      (arr[ai] % 2 == 0) ? even++ : odd++;
+      (arr[i] % 2 == 0) ? even++ : odd++;
+    } else if ((arr[i] >= 65 && arr[i] <= 90)|| (arr[i] >= 97 && arr[i] <= 122)) {
+      // letters
+      aletter++;
+    } else if (arr[i] == ' ') {
+      // spaces
+      aspace++;
+    } else {
+      // special symbols
+      asymb++;
     }
   }
 
