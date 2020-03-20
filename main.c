@@ -14,12 +14,12 @@ int main(int argc, char *argv[])
   } bt;
 
   struct VBoxStruct {
-    GtkWidget *vbox1;
-    GtkWidget *vbox2;
-    GtkWidget *vbox3;
+    GtkWidget *hbox1;
+    GtkWidget *hbox2;
+    GtkWidget *hbox3;
+    GtkWidget *vbox;
   } vb;
 
-  GtkWidget *hbox;
   GtkWidget *window;
 
   /*
@@ -62,25 +62,25 @@ int main(int argc, char *argv[])
 
   leb.label = gtk_label_new("200 symbols");
 
-  vb.vbox1 = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 20);
-  vb.vbox2 = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 20);
-  vb.vbox3 = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 20);
-  hbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 20);
+  vb.hbox1 = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 20);
+  vb.hbox2 = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 20);
+  vb.hbox3 = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 20);
+  vb.vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 20);
 
-  gtk_box_pack_start(GTK_BOX(vb.vbox1), leb.entry, TRUE, TRUE, 10);
-  gtk_box_pack_start(GTK_BOX(vb.vbox1), bt.clearbutton, TRUE, TRUE, 10);
+  gtk_box_pack_start(GTK_BOX(vb.hbox1), leb.entry, TRUE, TRUE, 10);
+  gtk_box_pack_start(GTK_BOX(vb.hbox1), bt.clearbutton, TRUE, TRUE, 10);
 
-  gtk_box_pack_start(GTK_BOX(vb.vbox2), leb.label, TRUE, TRUE, 10);
+  gtk_box_pack_start(GTK_BOX(vb.hbox2), leb.label, TRUE, TRUE, 10);
 
-  gtk_box_pack_start(GTK_BOX(vb.vbox3), bt.lowerbutton, TRUE, TRUE, 20);
-  gtk_box_pack_start(GTK_BOX(vb.vbox3), bt.upperbutton, TRUE, TRUE, 20);
-  gtk_box_pack_start(GTK_BOX(vb.vbox3), bt.titlebutton, TRUE, TRUE, 20);
-  gtk_box_pack_start(GTK_BOX(vb.vbox3), bt.reversebutton, TRUE, TRUE, 20);
+  gtk_box_pack_start(GTK_BOX(vb.hbox3), bt.lowerbutton, TRUE, TRUE, 20);
+  gtk_box_pack_start(GTK_BOX(vb.hbox3), bt.upperbutton, TRUE, TRUE, 20);
+  gtk_box_pack_start(GTK_BOX(vb.hbox3), bt.titlebutton, TRUE, TRUE, 20);
+  gtk_box_pack_start(GTK_BOX(vb.hbox3), bt.reversebutton, TRUE, TRUE, 20);
 
-  gtk_box_pack_start(GTK_BOX(hbox), vb.vbox1, TRUE, FALSE, 10);
-  gtk_box_pack_start(GTK_BOX(hbox), vb.vbox2, TRUE, FALSE, 10);
-  gtk_box_pack_start(GTK_BOX(hbox), vb.vbox3, TRUE, FALSE, 10);
-  gtk_container_add(GTK_CONTAINER(window), hbox);
+  gtk_box_pack_start(GTK_BOX(vb.vbox), vb.hbox1, TRUE, FALSE, 10);
+  gtk_box_pack_start(GTK_BOX(vb.vbox), vb.hbox2, TRUE, FALSE, 10);
+  gtk_box_pack_start(GTK_BOX(vb.vbox), vb.hbox3, TRUE, FALSE, 10);
+  gtk_container_add(GTK_CONTAINER(window), vb.vbox);
 
   g_signal_connect(G_OBJECT(bt.lowerbutton), "clicked", G_CALLBACK(lower_button_clicked), &leb);
   g_signal_connect(G_OBJECT(bt.upperbutton), "clicked", G_CALLBACK(upper_button_clicked), &leb);
