@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
     GtkWidget *clearbutton;
   } bt;
 
-  struct VBoxStruct {
+  struct BoxStruct {
     GtkWidget *hbox1;
     GtkWidget *hbox2;
     GtkWidget *hbox3;
@@ -21,28 +21,6 @@ int main(int argc, char *argv[])
   } vb;
 
   GtkWidget *window;
-
-  /*
-    Если мы инициализируме указатель на структуру
-    struct ButtonsStruct *pointer = &bt;
-    То тогда обращение к элементам происходит как pointer -> lowerbutton
-    Потому что указатель на структуру
-
-    Если мы инициализируем переменную посредника
-    struct ButtonsStruct bt;
-    То тогда обращение к элементам структуры происходит как bt.lowerbutton
-  */
-
-  /*
-    Если определить структуру с помощью:
-    typedef struct {
-      int x;
-    } Name;
-
-    И затем struct Name *p;
-    Обращение к элементам происходит через p -> label;
-    Нужно понять разницу между struct Name {}; и typedef struct {} Name;
-  */
 
   gtk_init(&argc, &argv);
   window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
