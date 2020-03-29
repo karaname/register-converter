@@ -33,9 +33,3 @@ struct Grids {
 	GtkWidget *grid_main;
 	GtkWidget *grid_buttns;
 } gr;
-
-void on_lower_button_clicked(GtkWidget *lower_buttn, struct Buffers *p);
-void on_upper_button_clicked(GtkWidget *upper_buttn, struct Buffers *p);
-void on_title_button_clicked(GtkWidget *title_buttn, struct Buffers *p);
-void on_reverse_button_clicked(GtkWidget *rev_buttn, struct Buffers *p);
-void on_clear_button_clicked(GtkWidget *clear_buttn, struct Buffers *p);
