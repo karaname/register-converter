@@ -1,17 +1,23 @@
-rcnv: main.o handlers.o count.o get_buffer.o
-	gcc -g3 `pkg-config --cflags --libs gtk+-3.0` -o rcnv main.o handlers.o count.o get_buffer.o
+# variables
+objects=main.o handlers.o count.o get_buffer.o
+pkg=`pkg-config --cflags --libs gtk+-3.0`
+gcc=gcc -g3
+
+# instructions
+rcnv: $(objects)
+	$(gcc) $(pkg) -o rcnv $(objects)
 
 main.o: main.c
-	gcc -g3 -c main.c `pkg-config --cflags --libs gtk+-3.0`
+	$(gcc) -c main.c $(pkg)
 
 handlers.o: handlers.c
-	gcc -g3 -c handlers.c `pkg-config --cflags --libs gtk+-3.0`
+	$(gcc) -c handlers.c $(pkg)
 
 count.o: count.c
-	gcc -g3 -c count.c `pkg-config --cflags --libs gtk+-3.0`
+	$(gcc) -c count.c $(pkg)
 
 get_buffer.o: get_buffer.c
-	gcc -g3 -c get_buffer.c `pkg-config --cflags --libs gtk+-3.0`
+	$(gcc) -c get_buffer.c $(pkg)
 
 clean:
 	rm -rf *.o
