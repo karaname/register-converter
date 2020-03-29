@@ -3,6 +3,7 @@
 #include "main.h"
 #include "get_buffer.h"
 
+/* Count different symbols from text_buffer_FR */
 void count()
 {
   int i, anum, even, odd;
@@ -16,12 +17,13 @@ void count()
     // all chars
     if (text[i] >= 32 && text[i] <= 126) achar++;
 
-    // other
+    // others
     if (text[i] >= 48 && text[i] <= 57) {
-      anum++;
+      anum++; // numbers
       // even / odd
       (text[i] % 2 == 0) ? even++ : odd++;
-    } else if ((text[i] >= 65 && text[i] <= 90)|| (text[i] >= 97 && text[i] <= 122)) {
+    } else if ((text[i] >= 65 && text[i] <= 90) ||
+      (text[i] >= 97 && text[i] <= 122)) {
       // letters
       aletter++;
     } else if (text[i] == ' ') {

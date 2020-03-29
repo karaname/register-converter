@@ -1,6 +1,7 @@
 #include <gtk/gtk.h>
 #include "main.h"
 
+/* Retrun text from buffer - text_buffer_FR*/
 gchar *get_text()
 {
   GtkTextIter start, end;

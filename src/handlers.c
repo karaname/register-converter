@@ -4,6 +4,7 @@
 #include "count.h"
 #include "get_buffer.h"
 
+/* Conversion uppercase text to lower */
 void on_lower_button_clicked(GtkWidget *lower_buttn)
 {
   gchar *text = get_text();
@@ -18,6 +19,7 @@ void on_lower_button_clicked(GtkWidget *lower_buttn)
   count();
 }
 
+/* Conversion lowercase text to upper */
 void on_upper_button_clicked(GtkWidget *upper_buttn)
 {
   gchar *text = get_text();
@@ -32,6 +34,7 @@ void on_upper_button_clicked(GtkWidget *upper_buttn)
   count();
 }
 
+/* Conversion lowercase to title case */
 void on_title_button_clicked(GtkWidget *title_buttn)
 {
   gchar *text = get_text();
@@ -53,6 +56,7 @@ void on_title_button_clicked(GtkWidget *title_buttn)
   count();
 }
 
+/* Conversion text to reverse */
 void on_reverse_button_clicked(GtkWidget *rev_buttn)
 {
   char reverse[50];
@@ -75,6 +79,7 @@ void on_reverse_button_clicked(GtkWidget *rev_buttn)
   count();
 }
 
+/* Clear buffers / list store from data */
 void on_clear_button_clicked(GtkWidget *clear_buttn)
 {
   gtk_text_buffer_set_text(bf.text_buffer_FR, "", -1);
