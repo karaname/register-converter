@@ -1,5 +1,4 @@
 #include <gtk/gtk.h>
-
 #include "main.h"
 #include "get_buffer.h"
 

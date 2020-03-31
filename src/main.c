@@ -1,5 +1,4 @@
 #include <gtk/gtk.h>
-
 #include "main.h"
 #include "handlers.h"
 
@@ -145,6 +144,7 @@ int main(int argc, char *argv[])
 	gtk_widget_show_all(window);
 
 	g_signal_connect(G_OBJECT(window), "destroy", gtk_main_quit, NULL);
+	g_signal_connect(G_OBJECT(bf.text_buffer_FR), "insert-text", G_CALLBACK(max_buffer_insert), NULL);
 	g_signal_connect(G_OBJECT(bt.lower_buttn), "clicked", G_CALLBACK(on_lower_button_clicked), NULL);
 	g_signal_connect(G_OBJECT(bt.upper_buttn), "clicked", G_CALLBACK(on_upper_button_clicked), NULL);
 	g_signal_connect(G_OBJECT(bt.title_buttn), "clicked", G_CALLBACK(on_title_button_clicked), NULL);

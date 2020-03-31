@@ -1,8 +1,21 @@
 #include <gtk/gtk.h>
-
 #include "main.h"
 #include "count.h"
 #include "get_buffer.h"
+#define BUFFER_SIZE 4095
+
+/* Set maximum buffer size - 4B */
+void max_buffer_insert(GtkTextBuffer *text_buffer_FR, GtkTextIter *location)
+{
+  gint len_bf = gtk_text_buffer_get_char_count(text_buffer_FR);
+  if (len_bf > BUFFER_SIZE) {
+    GtkTextIter offset, end;
+    gtk_text_buffer_get_iter_at_offset(text_buffer_FR, &offset, BUFFER_SIZE);
+    gtk_text_buffer_get_end_iter(text_buffer_FR, &end);
+    gtk_text_buffer_delete(text_buffer_FR, &offset, &end);
+    gtk_text_iter_assign(location, &offset);
+  }
+}
 
 /* Conversion uppercase text to lower */
 void on_lower_button_clicked(GtkWidget *lower_buttn)
@@ -59,7 +72,7 @@ void on_title_button_clicked(GtkWidget *title_buttn)
 /* Conversion text to reverse */
 void on_reverse_button_clicked(GtkWidget *rev_buttn)
 {
-  char reverse[50];
+  char reverse[BUFFER_SIZE];
   int i, start, end;
   gchar *text = get_text();
 
