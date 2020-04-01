@@ -59,10 +59,14 @@ gboolean value)
 
 	gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(text_view), GTK_WRAP_WORD_CHAR);
 	gtk_text_view_set_monospace(GTK_TEXT_VIEW(text_view), TRUE);
+
+  /* MARGINS */
 	gtk_text_view_set_left_margin(GTK_TEXT_VIEW(text_view), 5);
 	gtk_text_view_set_right_margin(GTK_TEXT_VIEW(text_view), 8);
 	gtk_text_view_set_top_margin(GTK_TEXT_VIEW(text_view), 5);
 	gtk_text_view_set_bottom_margin(GTK_TEXT_VIEW(text_view), 5);
+
+  /* PIXELS */
 	gtk_text_view_set_pixels_above_lines(GTK_TEXT_VIEW(text_view), 3);
 	gtk_text_view_set_pixels_below_lines(GTK_TEXT_VIEW(text_view), 3);
 	gtk_text_view_set_pixels_inside_wrap(GTK_TEXT_VIEW(text_view), 2);
@@ -119,6 +123,7 @@ make_common()
 	gtk_grid_attach(GTK_GRID(gr.grid_main), GTK_WIDGET(tv.tree_view), 0, 1, 1, 1);
 	gtk_grid_attach(GTK_GRID(gr.grid_main), GTK_WIDGET(srw.scrolled_window_SR), 1, 1, 1, 1);
 	gtk_grid_attach(GTK_GRID(gr.grid_main), GTK_WIDGET(gr.grid_buttns), 0, 2, 2, 1);
+  /* left, top, width, height */
 
   /* ATTACH BUTTONS TO GRID_BUTTNS */
 	gtk_grid_attach(GTK_GRID(gr.grid_buttns), GTK_WIDGET(bt.lower_buttn), 0, 0, 1, 1);

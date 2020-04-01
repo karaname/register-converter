@@ -5,21 +5,21 @@
 /* Count different symbols from text_buffer_FR */
 void count()
 {
-  int i, anum, even, odd;
+  int anum, even, odd;
   int achar, asymb, aspace, aletter;
 
   anum = even = odd = 0;
   achar = asymb = aspace = aletter = 0;
   gchar *text = get_text();
 
-  for (i = 0; text[i] != '\0'; i++ ) {
+  for (int i = 0; text[i] != '\0'; i++) {
     // all chars
     if (text[i] >= 32 && text[i] <= 126) achar++;
 
     // others
     if (text[i] >= 48 && text[i] <= 57) {
       anum++; // numbers
-      // even / odd
+      // even - odd
       (text[i] % 2 == 0) ? even++ : odd++;
     } else if ((text[i] >= 65 && text[i] <= 90) ||
       (text[i] >= 97 && text[i] <= 122)) {

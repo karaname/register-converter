@@ -51,16 +51,14 @@ void on_upper_button_clicked(GtkWidget *upper_buttn)
 void on_title_button_clicked(GtkWidget *title_buttn)
 {
   gchar *text = get_text();
-  // first symbol - to uppercase
-  if (text[0] >= 97 && text[0] <= 122)
-    text[0] -= 32;
-
-  // other
   for (int i = 0; text[i] != '\0'; i++) {
-    // after space conversion to uppercase
-    if (text[i] == ' ' && i++)
+    if (text[0] >= 97 && text[0] <= 122)
+      text[0] -= 32;
+
+    if (text[i] == ' ' && i++) {
       if (text[i] >= 97 && text[i] <= 122)
         text[i] -= 32; // Title Conversion
+    }
   }
 
   gtk_text_buffer_set_text(bf.text_buffer_SR, text, -1);

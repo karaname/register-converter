@@ -19,5 +19,11 @@ count.o: count.c
 get_buffer.o: get_buffer.c
 	$(gcc) -c get_buffer.c $(pkg)
 
+install:
+	install rcnv /usr/local/bin/
+
+uninstall:
+	rm -rf /usr/local/bin/rcnv
+
 clean:
 	rm -rf *.o
