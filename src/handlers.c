@@ -70,11 +70,10 @@ void on_title_button_clicked(GtkWidget *title_buttn)
 /* Conversion text to reverse */
 void on_reverse_button_clicked(GtkWidget *rev_buttn)
 {
-  char reverse[BUFFER_SIZE];
+  char reverse[BUFFER_SIZE + 1];
   int i, start, end;
   gchar *text = get_text();
 
-  // i - length
   for (i = 0; text[i] != '\0'; i++);
   end = i - 1;
 
