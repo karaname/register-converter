@@ -36,13 +36,20 @@ make_tree_view()
 
 	gtk_list_store_append(GTK_LIST_STORE(tv.list_store), &tv.iter);
 
-  gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW(tv.tree_view), 0, "Total", tv.renderer, "text", 0, NULL);
-	gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW(tv.tree_view), 1, "Letter", tv.renderer, "text", 1, NULL);
-	gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW(tv.tree_view), 2, "Special", tv.renderer, "text", 2, NULL);
-	gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW(tv.tree_view), 3, "Space", tv.renderer, "text", 3, NULL);
-	gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW(tv.tree_view), 4, "Number", tv.renderer, "text", 4, NULL);
-	gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW(tv.tree_view), 5, "Even", tv.renderer, "text", 5, NULL);
-	gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW(tv.tree_view), 6, "Odd", tv.renderer, "text", 6, NULL);
+  gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW(tv.tree_view), COLUMN_TOTAL, "Total",
+     tv.renderer, "text", COLUMN_TOTAL, NULL);
+	gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW(tv.tree_view), COLUMN_LETTER, "Letter",
+    tv.renderer, "text", COLUMN_LETTER, NULL);
+	gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW(tv.tree_view), COLUMN_SPECIAL, "Special",
+    tv.renderer, "text", COLUMN_SPECIAL, NULL);
+	gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW(tv.tree_view), COLUMN_SPACE, "Space",
+    tv.renderer, "text", COLUMN_SPACE, NULL);
+	gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW(tv.tree_view), COLUMN_NUM, "Number",
+    tv.renderer, "text", COLUMN_NUM, NULL);
+	gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW(tv.tree_view), COLUMN_EVEN, "Even",
+    tv.renderer, "text", COLUMN_EVEN, NULL);
+	gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW(tv.tree_view), COLUMN_ODD, "Odd",
+    tv.renderer, "text", COLUMN_ODD, NULL);
 }
 
 static void
@@ -93,7 +100,7 @@ make_common()
 
   /* -- SECOND ROW WIDGETS */
   /* tree view */
-	tv.list_store = gtk_list_store_new(7, G_TYPE_INT,
+	tv.list_store = gtk_list_store_new(N_COLUMNS, G_TYPE_INT,
 		G_TYPE_INT, G_TYPE_INT, G_TYPE_INT,
 		G_TYPE_INT, G_TYPE_INT, G_TYPE_INT);
 

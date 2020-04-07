@@ -1,4 +1,5 @@
 #include <gtk/gtk.h>
+#include <string.h>
 #include "main.h"
 #include "count.h"
 #include "get_buffer.h"
@@ -22,13 +23,12 @@ void on_lower_button_clicked(GtkWidget *lower_buttn)
 {
   gchar *text = get_text();
   for (int i = 0; text[i] != '\0'; i++) {
-    if (text[i] >= 65 && text[i] <= 90)
-      text[i] += 32; // (A - Z) -> a -z
+    if (text[i] >= 'A' && text[i] <= 'Z')
+      text[i] += 32;
   }
 
   gtk_text_buffer_set_text(bf.text_buffer_SR, text, -1);
   g_free(text);
-
   count();
 }
 
@@ -37,13 +37,12 @@ void on_upper_button_clicked(GtkWidget *upper_buttn)
 {
   gchar *text = get_text();
   for (int i = 0; text[i] != '\0'; i++) {
-    if (text[i] >= 97 && text[i] <= 122)
-      text[i] -= 32; // (a - z) -> A - Z
+    if (text[i] >= 'a' && text[i] <= 'z')
+      text[i] -= 32;
   }
 
   gtk_text_buffer_set_text(bf.text_buffer_SR, text, -1);
   g_free(text);
-
   count();
 }
 
@@ -52,40 +51,31 @@ void on_title_button_clicked(GtkWidget *title_buttn)
 {
   gchar *text = get_text();
   for (int i = 0; text[i] != '\0'; i++) {
-    if (text[0] >= 97 && text[0] <= 122)
+    if (text[0] >= 'a' && text[0] <= 'z')
       text[0] -= 32;
 
     if (text[i] == ' ' && i++) {
-      if (text[i] >= 97 && text[i] <= 122)
-        text[i] -= 32; // Title Conversion
+      if (text[i] >= 'a' && text[i] <= 'z')
+        text[i] -= 32;
     }
   }
 
   gtk_text_buffer_set_text(bf.text_buffer_SR, text, -1);
   g_free(text);
-
   count();
 }
 
 /* Conversion text to reverse */
 void on_reverse_button_clicked(GtkWidget *rev_buttn)
 {
-  char reverse[BUFFER_SIZE + 1];
-  int i, start, end;
+  int c, i, j;
   gchar *text = get_text();
 
-  for (i = 0; text[i] != '\0'; i++);
-  end = i - 1;
+  for (i = 0, j = strlen(text) - 1; i < j; i++, j--)
+    c = text[i], text[i] = text[j], text[j] = c;
 
-  for (start = 0; start < i; start++) {
-    reverse[start] = text[end];
-    end--;
-  }
-
-  reverse[i] = '\0'; // end of array
-  gtk_text_buffer_set_text(bf.text_buffer_SR, reverse, -1);
+  gtk_text_buffer_set_text(bf.text_buffer_SR, text, -1);
   g_free(text);
-
   count();
 }
 
@@ -98,6 +88,6 @@ void on_clear_button_clicked(GtkWidget *clear_buttn)
 
   gtk_text_buffer_set_text(bf.text_buffer_SR, "", -1);
 
-  for (int i = 0; i < 7; i++)
+  for (int i = 0; i < N_COLUMNS; i++)
     gtk_list_store_set(GTK_LIST_STORE(tv.list_store), &tv.iter, i, 0, -1);
 }

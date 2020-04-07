@@ -17,12 +17,12 @@ void count()
     if (text[i] >= 32 && text[i] <= 126) achar++;
 
     // others
-    if (text[i] >= 48 && text[i] <= 57) {
+    if (text[i] >= '0' && text[i] <= '9') {
       anum++; // numbers
       // even - odd
       (text[i] % 2 == 0) ? even++ : odd++;
-    } else if ((text[i] >= 65 && text[i] <= 90) ||
-      (text[i] >= 97 && text[i] <= 122)) {
+    } else if ((text[i] >= 'A' && text[i] <= 'Z') ||
+      (text[i] >= 'a' && text[i] <= 'z')) {
       // letters
       aletter++;
     } else if (text[i] == ' ') {
@@ -34,11 +34,18 @@ void count()
     }
   }
 
-  gtk_list_store_set(GTK_LIST_STORE(tv.list_store), &tv.iter, 0, achar, -1);
-  gtk_list_store_set(GTK_LIST_STORE(tv.list_store), &tv.iter, 1, aletter, -1);
-  gtk_list_store_set(GTK_LIST_STORE(tv.list_store), &tv.iter, 2, asymb, -1);
-  gtk_list_store_set(GTK_LIST_STORE(tv.list_store), &tv.iter, 3, aspace, -1);
-  gtk_list_store_set(GTK_LIST_STORE(tv.list_store), &tv.iter, 4, anum, -1);
-  gtk_list_store_set(GTK_LIST_STORE(tv.list_store), &tv.iter, 5, even, -1);
-  gtk_list_store_set(GTK_LIST_STORE(tv.list_store), &tv.iter, 6, odd, -1);
+  gtk_list_store_set(GTK_LIST_STORE(tv.list_store),
+    &tv.iter, COLUMN_TOTAL, achar, -1);
+  gtk_list_store_set(GTK_LIST_STORE(tv.list_store),
+    &tv.iter, COLUMN_LETTER, aletter, -1);
+  gtk_list_store_set(GTK_LIST_STORE(tv.list_store),
+    &tv.iter, COLUMN_SPECIAL, asymb, -1);
+  gtk_list_store_set(GTK_LIST_STORE(tv.list_store),
+    &tv.iter, COLUMN_SPACE, aspace, -1);
+  gtk_list_store_set(GTK_LIST_STORE(tv.list_store),
+    &tv.iter, COLUMN_NUM, anum, -1);
+  gtk_list_store_set(GTK_LIST_STORE(tv.list_store),
+    &tv.iter, COLUMN_EVEN, even, -1);
+  gtk_list_store_set(GTK_LIST_STORE(tv.list_store),
+    &tv.iter, COLUMN_ODD, odd, -1);
 }

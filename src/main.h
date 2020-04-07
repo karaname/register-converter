@@ -1,3 +1,14 @@
+enum {
+  COLUMN_TOTAL,
+  COLUMN_LETTER,
+  COLUMN_SPECIAL,
+  COLUMN_SPACE,
+  COLUMN_NUM,
+  COLUMN_EVEN,
+  COLUMN_ODD,
+  N_COLUMNS
+};
+
 struct Buttons {
 	GtkWidget *lower_buttn;
 	GtkWidget *upper_buttn;
