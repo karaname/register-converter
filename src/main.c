@@ -151,6 +151,7 @@ int main(int argc, char *argv[])
 	gtk_window_set_title(GTK_WINDOW(window), "Register Converter");
 	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER_ALWAYS);
 	gtk_window_set_resizable(GTK_WINDOW(window), FALSE);
+  gtk_window_maximize(GTK_WINDOW(window));
 
 	gtk_container_add(GTK_CONTAINER(window), make_common());
 	gtk_widget_show_all(window);
