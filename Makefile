@@ -17,7 +17,7 @@ clean:
 	rm -f *.o
 
 install:
-	install ./rcnv /usr/local/bin
+	install rcnv /usr/local/bin
 
 uninstall:
 	rm -rf /usr/local/bin/rcnv

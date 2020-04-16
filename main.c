@@ -3,7 +3,9 @@
    Rekhov Kirill / 29 - February 2020
 */
 
-#include "include.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <getopt.h>
 #include "header.h"
 #define PROGRAM_NAME "rcnv"
 

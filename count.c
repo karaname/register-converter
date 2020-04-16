@@ -2,7 +2,7 @@
    Amount different symbols
 */
 
-#include "include.h"
+#include <stdio.h>
 
 void count(char *s)
 {
