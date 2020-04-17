@@ -3,8 +3,9 @@
 */
 
 #include <stdio.h>
+#include <ctype.h>
 
-void count(char *s)
+void count(unsigned char *s)
 {
   int anum, even, odd;
   int achar, asymb, aspace, aletter;
@@ -13,26 +14,20 @@ void count(char *s)
   achar = asymb = aspace = aletter = 0;
 
   for (int i = 0; s[i] != '\0'; i++) {
-    // all chars
-    if (s[i] >= 32 && s[i] <= 126) achar++;
+    if (isprint(s[i])) achar++;
 
-    // others
-    if (s[i] >= '0' && s[i] <= '9') {
-      anum++; // numbers
-      // even - odd
+    if (isdigit(s[i])) {
+      anum++;
       (s[i] % 2 == 0) ? even++ : odd++;
-    } else if ((s[i] >= 'A' && s[i] <= 'Z') ||
-      (s[i] >= 'a' && s[i] <= 'z')) {
-      // letters
+    } else if (isalpha(s[i])) {
       aletter++;
-    } else if (s[i] == ' ') {
-      // spaces
+    } else if (isspace(s[i])) {
       aspace++;
     } else {
-      // special symbols
       asymb++;
     }
   }
+
   printf("-------------------------------------------------------");
   printf("\n total chars     - %-5d / letters - %d\n", achar, aletter);
   printf(" special symbols - %-5d / spaces  - %d\n", asymb, aspace);

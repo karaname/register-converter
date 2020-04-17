@@ -16,11 +16,11 @@ void usage(int status)
   } else {
     printf("Usage: %s [OPTION]\n", PROGRAM_NAME);
     fputs("\
-Text conversion and counting\n\
+Text ASCII conversion and counting\n\
 \n\
   -c, --count       count the number of different symbols\n\
-  -l, --lowercase   accept uppercase and convert in lowercase\n\
-  -u, --uppercase   accept lowercase and convert in uppercase\n\
+  -l, --lowercase   accept uppercase and convert to lowercase\n\
+  -u, --uppercase   accept lowercase and convert to uppercase\n\
   -r, --reverse     reverse text conversion\n\
   -t, --title       title case conversion\n\
 \n\

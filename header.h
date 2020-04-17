@@ -4,5 +4,7 @@
 #define N_LOWERCASE 4
 #define N_UPPERCASE 5
 #define BUFFER_SIZE 4095
+
+void usage(int status);
 void conv_reg(int n);
 void count(char *s);
