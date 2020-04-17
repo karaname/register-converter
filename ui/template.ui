@@ -40,6 +40,8 @@
     <property name="title" translatable="yes">Register Converter</property>
     <property name="resizable">False</property>
     <property name="window_position">center-always</property>
+    <property name="default_width">620</property>
+    <property name="default_height">500</property>
     <child type="titlebar">
       <placeholder/>
     </child>
@@ -47,9 +49,9 @@
       <object class="GtkGrid" id="grid_main">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="border_width">20</property>
-        <property name="row_spacing">20</property>
-        <property name="column_spacing">20</property>
+        <property name="border_width">30</property>
+        <property name="row_spacing">25</property>
+        <property name="column_spacing">25</property>
         <property name="row_homogeneous">True</property>
         <property name="column_homogeneous">True</property>
         <child>
@@ -58,7 +60,9 @@
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
-            <property name="border_width">60</property>
+            <property name="tooltip_text" translatable="yes">Clear all buffers in this page</property>
+            <property name="valign">center</property>
+            <property name="border_width">40</property>
           </object>
           <packing>
             <property name="left_attach">1</property>
@@ -70,7 +74,7 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="valign">center</property>
-            <property name="column_spacing">40</property>
+            <property name="column_spacing">45</property>
             <property name="column_homogeneous">True</property>
             <child>
               <object class="GtkButton" id="rev_buttn">
@@ -78,6 +82,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="tooltip_text" translatable="yes">Text conversion to reverse</property>
               </object>
               <packing>
                 <property name="left_attach">3</property>
@@ -90,6 +95,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="tooltip_text" translatable="yes">Text conversion to title</property>
               </object>
               <packing>
                 <property name="left_attach">2</property>
@@ -102,6 +108,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="tooltip_text" translatable="yes">Text conversion to upper</property>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -114,6 +121,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="tooltip_text" translatable="yes">Text conversion to upper</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>

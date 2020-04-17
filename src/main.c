@@ -7,7 +7,7 @@ make_buttons_grid()
 {
   gtk_grid_insert_row(GTK_GRID(gr.grid_buttns), 1);
   gtk_grid_insert_column(GTK_GRID(gr.grid_buttns), 4);
-  gtk_grid_set_column_spacing(GTK_GRID(gr.grid_buttns), 40);
+  gtk_grid_set_column_spacing(GTK_GRID(gr.grid_buttns), 45);
   gtk_grid_set_column_homogeneous(GTK_GRID(gr.grid_buttns), TRUE);
   gtk_widget_set_valign(GTK_WIDGET(gr.grid_buttns), GTK_ALIGN_CENTER);
 }
@@ -17,11 +17,11 @@ make_initial_grid()
 {
   gtk_grid_insert_row(GTK_GRID(gr.grid_main), 3);
   gtk_grid_insert_column(GTK_GRID(gr.grid_main), 2);
-  gtk_grid_set_row_spacing(GTK_GRID(gr.grid_main), 20);
-  gtk_grid_set_column_spacing(GTK_GRID(gr.grid_main), 20);
+  gtk_grid_set_row_spacing(GTK_GRID(gr.grid_main), 25);
+  gtk_grid_set_column_spacing(GTK_GRID(gr.grid_main), 25);
   gtk_grid_set_row_homogeneous(GTK_GRID(gr.grid_main), TRUE);
   gtk_grid_set_column_homogeneous(GTK_GRID(gr.grid_main), TRUE);
-  gtk_container_set_border_width(GTK_CONTAINER(gr.grid_main), 20);
+  gtk_container_set_border_width(GTK_CONTAINER(gr.grid_main), 30);
 }
 
 static void
@@ -96,7 +96,9 @@ make_common()
 
   /* clear button */
   bt.clear_buttn = gtk_button_new_with_label("Clear");
-  gtk_container_set_border_width(GTK_CONTAINER(bt.clear_buttn), 60);
+  gtk_container_set_border_width(GTK_CONTAINER(bt.clear_buttn), 40);
+  gtk_widget_set_valign(GTK_WIDGET(bt.clear_buttn), GTK_ALIGN_CENTER);
+  gtk_widget_set_tooltip_text(GTK_WIDGET(bt.clear_buttn), "Clear all buffers in this page");
 
   /* -- SECOND ROW WIDGETS */
   /* tree view */
@@ -117,9 +119,13 @@ make_common()
   /* -- THIRD ROW WIDGETS */
   /* buttons */
   bt.lower_buttn = gtk_button_new_with_label("Lower");
+  gtk_widget_set_tooltip_text(GTK_WIDGET(bt.lower_buttn), "Text conversion to lower");
   bt.upper_buttn = gtk_button_new_with_label("Upper");
+  gtk_widget_set_tooltip_text(GTK_WIDGET(bt.upper_buttn), "Text conversion to upper");
   bt.title_buttn = gtk_button_new_with_label("Title");
+  gtk_widget_set_tooltip_text(GTK_WIDGET(bt.title_buttn), "Text conversion to title");
   bt.rev_buttn = gtk_button_new_with_label("Reverse");
+  gtk_widget_set_tooltip_text(GTK_WIDGET(bt.rev_buttn), "Text conversion to reverse");
 
   make_buttons_grid();
   make_initial_grid();
@@ -148,8 +154,9 @@ int main(int argc, char *argv[])
   gtk_init(&argc, &argv);
 
   window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-  gtk_window_set_title(GTK_WINDOW(window), "Register Converter");
+  gtk_window_set_title(GTK_WINDOW(window), "Register Converter - ASCII");
   gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER_ALWAYS);
+  gtk_window_set_default_size(GTK_WINDOW(window), 620, 500);
   gtk_window_set_resizable(GTK_WINDOW(window), FALSE);
   gtk_window_maximize(GTK_WINDOW(window));
 
