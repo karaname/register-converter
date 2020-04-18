@@ -52,3 +52,5 @@ struct Grids {
   GtkWidget *grid_main;
   GtkWidget *grid_buttns;
 } gr;
+
+GtkWidget *window;

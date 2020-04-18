@@ -29,6 +29,7 @@ int check_ascii(guchar *b)
 
   if (status == POPUP) {
     dg.dialog = gtk_dialog_new();
+    gtk_window_set_transient_for(GTK_WINDOW(dg.dialog), GTK_WINDOW(window));
     gtk_window_set_title(GTK_WINDOW(dg.dialog), "Message");
     gtk_window_set_default_size(GTK_WINDOW(dg.dialog), 320, 180);
     gtk_window_set_resizable(GTK_WINDOW(dg.dialog), FALSE);
