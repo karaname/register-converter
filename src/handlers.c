@@ -5,7 +5,7 @@
 #include "generic.h"
 
 #define BUFFER_SIZE 4095
-gchar *text;
+guchar *text;
 
 /* Set maximum buffer size - 4B */
 void max_buffer_insert(GtkTextBuffer *text_buffer_FR, GtkTextIter *location)

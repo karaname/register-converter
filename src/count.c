@@ -6,7 +6,7 @@
 Count different symbols from text_buffer_FR
 Update list store and text_buffer_SR
 */
-void count(char *s)
+void count(guchar *s)
 {
   int anum, even, odd;
   int achar, asymb, aspace, aletter;

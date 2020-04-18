@@ -1,2 +1,2 @@
-gchar *get_text();
-void count(char *s);
+guchar *get_text();
+void count(guchar *s);
