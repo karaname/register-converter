@@ -1,1 +1,0 @@
-gchar *get_text();

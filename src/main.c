@@ -84,51 +84,57 @@ gboolean value)
 static GtkWidget *
 make_common()
 {
+  /* new objects */
   gr.grid_main = gtk_grid_new();
   gr.grid_buttns = gtk_grid_new();
 
-  /* -- FIRST ROW WIDGETS */
-  /* scrolled window */
   frw.scrolled_window_FR = gtk_scrolled_window_new(NULL, NULL);
   bf.text_buffer_FR = gtk_text_buffer_new(NULL);
   frw.text_view_FR = gtk_text_view_new_with_buffer(bf.text_buffer_FR);
-  make_scrolled_window(frw.scrolled_window_FR, bf.text_buffer_FR, frw.text_view_FR, 1);
 
-  /* clear button */
   bt.clear_buttn = gtk_button_new_with_label("Clear");
-  gtk_container_set_border_width(GTK_CONTAINER(bt.clear_buttn), 40);
-  gtk_widget_set_valign(GTK_WIDGET(bt.clear_buttn), GTK_ALIGN_CENTER);
-  gtk_widget_set_tooltip_text(GTK_WIDGET(bt.clear_buttn), "Clear all buffers in this page");
 
-  /* -- SECOND ROW WIDGETS */
-  /* tree view */
   tv.list_store = gtk_list_store_new(N_COLUMNS, G_TYPE_INT,
     G_TYPE_INT, G_TYPE_INT, G_TYPE_INT,
     G_TYPE_INT, G_TYPE_INT, G_TYPE_INT);
 
   tv.tree_view = gtk_tree_view_new_with_model(GTK_TREE_MODEL(tv.list_store));
   tv.renderer = gtk_cell_renderer_text_new();
-  make_tree_view();
 
-  /* scrolled window */
   srw.scrolled_window_SR = gtk_scrolled_window_new(NULL, NULL);
   bf.text_buffer_SR = gtk_text_buffer_new(NULL);
   srw.text_view_SR = gtk_text_view_new_with_buffer(bf.text_buffer_SR);
+
+  bt.lower_buttn = gtk_button_new_with_label("Lower");
+  bt.upper_buttn = gtk_button_new_with_label("Upper");
+  bt.title_buttn = gtk_button_new_with_label("Title");
+  bt.rev_buttn = gtk_button_new_with_label("Reverse");
+
+
+  /* scrolled window first row */
+  make_scrolled_window(frw.scrolled_window_FR, bf.text_buffer_FR, frw.text_view_FR, 1);
+
+  /* clear button */
+  gtk_container_set_border_width(GTK_CONTAINER(bt.clear_buttn), 40);
+  gtk_widget_set_valign(GTK_WIDGET(bt.clear_buttn), GTK_ALIGN_CENTER);
+  gtk_widget_set_tooltip_text(GTK_WIDGET(bt.clear_buttn), "Clear all buffers in this page");
+
+  /* tree view */
+  make_tree_view();
+
+  /* scrolled window second row */
   make_scrolled_window(srw.scrolled_window_SR, bf.text_buffer_SR, srw.text_view_SR, 0);
 
-  /* -- THIRD ROW WIDGETS */
-  /* buttons */
-  bt.lower_buttn = gtk_button_new_with_label("Lower");
+  /* cases buttons */
   gtk_widget_set_tooltip_text(GTK_WIDGET(bt.lower_buttn), "Text conversion to lower");
-  bt.upper_buttn = gtk_button_new_with_label("Upper");
   gtk_widget_set_tooltip_text(GTK_WIDGET(bt.upper_buttn), "Text conversion to upper");
-  bt.title_buttn = gtk_button_new_with_label("Title");
   gtk_widget_set_tooltip_text(GTK_WIDGET(bt.title_buttn), "Text conversion to title");
-  bt.rev_buttn = gtk_button_new_with_label("Reverse");
   gtk_widget_set_tooltip_text(GTK_WIDGET(bt.rev_buttn), "Text conversion to reverse");
 
+  /* grids */
   make_buttons_grid();
   make_initial_grid();
+
 
   /* ATTACH WIDGETS TO GRID_MAIN */
   gtk_grid_attach(GTK_GRID(gr.grid_main), GTK_WIDGET(frw.scrolled_window_FR), 0, 0, 1, 1);
@@ -144,10 +150,10 @@ make_common()
   gtk_grid_attach(GTK_GRID(gr.grid_buttns), GTK_WIDGET(bt.title_buttn), 2, 0, 1, 1);
   gtk_grid_attach(GTK_GRID(gr.grid_buttns), GTK_WIDGET(bt.rev_buttn), 3, 0, 1, 1);
 
-  return GTK_WIDGET (gr.grid_main);
+  return GTK_WIDGET(gr.grid_main);
 }
 
-int main(int argc, char *argv[])
+int main(int argc, char **argv)
 {
   GtkWidget *window;
 
