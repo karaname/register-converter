@@ -9,6 +9,14 @@ enum {
   N_COLUMNS
 };
 
+struct Dialog {
+  GtkWidget *dialog;
+  GtkWidget *content_area;
+  GtkWidget *message;
+  GtkWidget *box_button;
+  GtkWidget *ok_button;
+} dg;
+
 struct Buttons {
   GtkWidget *lower_buttn;
   GtkWidget *upper_buttn;

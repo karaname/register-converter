@@ -60,9 +60,10 @@ gboolean value)
   gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolled_window),
     GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
 
-  if (value == 1)
+  if (value) {
     gtk_text_buffer_set_text(text_buffer,
       "Enter the text and click on any button you like ...", -1);
+  }
 
   gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(text_view), GTK_WRAP_WORD_CHAR);
   gtk_text_view_set_monospace(GTK_TEXT_VIEW(text_view), TRUE);

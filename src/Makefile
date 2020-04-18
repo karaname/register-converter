@@ -1,4 +1,4 @@
-objects=main.o handlers.o count.o get_buffer.o
+objects=main.o handlers.o count.o buffer.o
 pkg=`pkg-config --cflags --libs gtk+-3.0`
 gcc=gcc -g3
 
@@ -14,8 +14,8 @@ handlers.o: handlers.c
 count.o: count.c
 	$(gcc) -c count.c $(pkg)
 
-get_buffer.o: get_buffer.c
-	$(gcc) -c get_buffer.c $(pkg)
+buffer.o: buffer.c
+	$(gcc) -c buffer.c $(pkg)
 
 install:
 	install rcnv /usr/local/bin/

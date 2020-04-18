@@ -5,7 +5,7 @@
 #include "generic.h"
 
 #define BUFFER_SIZE 4095
-guchar *text;
+guchar *buffer;
 
 /* Set maximum buffer size - 4B */
 void max_buffer_insert(GtkTextBuffer *text_buffer_FR, GtkTextIter *location)
@@ -20,55 +20,6 @@ void max_buffer_insert(GtkTextBuffer *text_buffer_FR, GtkTextIter *location)
   }
 }
 
-/* Conversion uppercase text to lower */
-void on_lower_button_clicked(GtkWidget *lower_buttn)
-{
-  text = get_text();
-  for (int i = 0; text[i] != '\0'; i++)
-    if (isupper(text[i])) *(text + i) = tolower(text[i]);
-
-  count(text);
-}
-
-/* Conversion lowercase text to upper */
-void on_upper_button_clicked(GtkWidget *upper_buttn)
-{
-  text = get_text();
-  for (int i = 0; text[i] != '\0'; i++)
-    if (islower(text[i])) *(text + i) = toupper(text[i]);
-
-  count(text);
-}
-
-/* Conversion lowercase to title case */
-void on_title_button_clicked(GtkWidget *title_buttn)
-{
-  text = get_text();
-
-  if (islower(text[0])) *(text) = toupper(text[0]);
-  for (int i = 0; text[i] != '\0'; i++) {
-    if (isspace(text[i]) && i++) {
-      if (islower(text[i])) {
-        *(text + i) = toupper(text[i]);
-      }
-    }
-  }
-
-  count(text);
-}
-
-/* Conversion text to reverse */
-void on_reverse_button_clicked(GtkWidget *rev_buttn)
-{
-  int c, i, j;
-  text = get_text();
-
-  for (i = 0, j = strlen(text) - 1; i < j; i++, j--)
-    c = text[i], text[i] = text[j], text[j] = c;
-
-  count(text);
-}
-
 /* Clear buffers and list store */
 void on_clear_button_clicked(GtkWidget *clear_buttn)
 {
@@ -79,4 +30,71 @@ void on_clear_button_clicked(GtkWidget *clear_buttn)
 
   for (int i = 0; i < N_COLUMNS; i++)
     gtk_list_store_set(GTK_LIST_STORE(tv.list_store), &tv.iter, i, 0, -1);
+}
+
+/* Conversion uppercase text to lower */
+void on_lower_button_clicked(GtkWidget *lower_buttn)
+{
+  buffer = get_text();
+
+  if (!check_ascii(buffer)) {
+    for (int i = 0; buffer[i] != '\0'; i++)
+      if (isupper(buffer[i])) *(buffer + i) = tolower(buffer[i]);
+
+    count(buffer);
+  } else {
+    on_clear_button_clicked(bt.clear_buttn);
+  }
+}
+
+/* Conversion lowercase text to upper */
+void on_upper_button_clicked(GtkWidget *upper_buttn)
+{
+  buffer = get_text();
+
+  if (!check_ascii(buffer)) {
+    for (int i = 0; buffer[i] != '\0'; i++)
+      if (islower(buffer[i])) *(buffer + i) = toupper(buffer[i]);
+
+    count(buffer);
+  } else {
+    on_clear_button_clicked(bt.clear_buttn);
+  }
+}
+
+/* Conversion lowercase to title case */
+void on_title_button_clicked(GtkWidget *title_buttn)
+{
+  buffer = get_text();
+
+  if (!check_ascii(buffer)) {
+    if (islower(buffer[0])) *(buffer) = toupper(buffer[0]);
+    for (int i = 0; buffer[i] != '\0'; i++) {
+      if (isspace(buffer[i]) && i++) {
+        if (islower(buffer[i])) {
+          *(buffer + i) = toupper(buffer[i]);
+        }
+      }
+    }
+    count(buffer);
+  } else {
+    on_clear_button_clicked(bt.clear_buttn);
+  }
+}
+
+/* Conversion text to reverse */
+void on_reverse_button_clicked(GtkWidget *rev_buttn)
+{
+  buffer = get_text();
+
+  if (!check_ascii(buffer)) {
+    int c, i, j;
+
+    for (i = 0, j = strlen(buffer) - 1; i < j; i++, j--)
+      c = buffer[i], buffer[i] = buffer[j], buffer[j] = c;
+
+    count(buffer);
+  } else {
+    on_clear_button_clicked(bt.clear_buttn);
+  }
 }
