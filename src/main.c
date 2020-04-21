@@ -7,7 +7,7 @@ make_buttons_grid()
 {
   gtk_grid_insert_row(GTK_GRID(gr.grid_buttns), 1);
   gtk_grid_insert_column(GTK_GRID(gr.grid_buttns), 4);
-  gtk_grid_set_column_spacing(GTK_GRID(gr.grid_buttns), 45);
+  gtk_grid_set_column_spacing(GTK_GRID(gr.grid_buttns), 50);
   gtk_grid_set_column_homogeneous(GTK_GRID(gr.grid_buttns), TRUE);
   gtk_widget_set_valign(GTK_WIDGET(gr.grid_buttns), GTK_ALIGN_CENTER);
 }
@@ -17,11 +17,11 @@ make_initial_grid()
 {
   gtk_grid_insert_row(GTK_GRID(gr.grid_main), 3);
   gtk_grid_insert_column(GTK_GRID(gr.grid_main), 2);
-  gtk_grid_set_row_spacing(GTK_GRID(gr.grid_main), 25);
-  gtk_grid_set_column_spacing(GTK_GRID(gr.grid_main), 25);
+  gtk_grid_set_row_spacing(GTK_GRID(gr.grid_main), 60);
+  gtk_grid_set_column_spacing(GTK_GRID(gr.grid_main), 60);
   gtk_grid_set_row_homogeneous(GTK_GRID(gr.grid_main), TRUE);
   gtk_grid_set_column_homogeneous(GTK_GRID(gr.grid_main), TRUE);
-  gtk_container_set_border_width(GTK_CONTAINER(gr.grid_main), 30);
+  gtk_container_set_border_width(GTK_CONTAINER(gr.grid_main), 50);
 }
 
 static void
@@ -86,6 +86,12 @@ static GtkWidget *
 make_common()
 {
   /* new objects */
+  nt.notebook = gtk_notebook_new();
+  nt.label = gtk_label_new("???");
+
+  nt.conv_page = gtk_label_new("Conversion");
+  nt.gen_page = gtk_label_new("Generator");
+
   gr.grid_main = gtk_grid_new();
   gr.grid_buttns = gtk_grid_new();
 
@@ -151,7 +157,20 @@ make_common()
   gtk_grid_attach(GTK_GRID(gr.grid_buttns), GTK_WIDGET(bt.title_buttn), 2, 0, 1, 1);
   gtk_grid_attach(GTK_GRID(gr.grid_buttns), GTK_WIDGET(bt.rev_buttn), 3, 0, 1, 1);
 
-  return GTK_WIDGET(gr.grid_main);
+  /* notebook */
+  gtk_notebook_set_tab_pos(GTK_NOTEBOOK(nt.notebook), GTK_POS_TOP);
+  gtk_notebook_append_page(GTK_NOTEBOOK(nt.notebook), gr.grid_main, nt.conv_page);
+  gtk_notebook_append_page(GTK_NOTEBOOK(nt.notebook), nt.label, nt.gen_page);
+
+  /* background problem */
+  css_provider = gtk_css_provider_new();
+  gtk_css_provider_load_from_path(css_provider, "css/theme.css", NULL);
+  gtk_style_context_add_provider_for_screen(gdk_screen_get_default(),
+    GTK_STYLE_PROVIDER(css_provider), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+  gtk_style_context_add_class(gtk_widget_get_style_context(frw.text_view_FR), "views_bg");
+  gtk_style_context_add_class(gtk_widget_get_style_context(srw.text_view_SR), "views_bg");
+
+  return GTK_WIDGET(nt.notebook);
 }
 
 int main(int argc, char **argv)
@@ -161,7 +180,6 @@ int main(int argc, char **argv)
   window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
   gtk_window_set_title(GTK_WINDOW(window), "Register Converter - ASCII");
   gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER_ALWAYS);
-  gtk_window_set_default_size(GTK_WINDOW(window), 620, 500);
   gtk_window_set_resizable(GTK_WINDOW(window), FALSE);
   gtk_window_maximize(GTK_WINDOW(window));
 

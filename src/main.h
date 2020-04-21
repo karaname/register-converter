@@ -53,4 +53,12 @@ struct Grids {
   GtkWidget *grid_buttns;
 } gr;
 
+struct Notebook {
+  GtkWidget *notebook;
+  GtkWidget *conv_page;
+  GtkWidget *gen_page;
+  GtkWidget *label;
+} nt;
+
+GtkCssProvider *css_provider;
 GtkWidget *window;
