@@ -1,9 +1,10 @@
 objects=main.o handlers.o count.o buffer.o random.o
 pkg=`pkg-config --cflags --libs gtk+-3.0`
 gcc=gcc -g3
+binary=rcnv
 
-txma: $(objects)
-	$(gcc) $(pkg) -o txma $(objects)
+rcnv: $(objects)
+	$(gcc) $(pkg) -o $(binary) $(objects)
 
 main.o: main.c
 	$(gcc) -c main.c $(pkg)
@@ -21,10 +22,10 @@ random.o: random.c
 	$(gcc) -c random.c $(pkg)
 
 install:
-	install txma /usr/local/bin/
+	install $(binary) /usr/local/bin/
 
 uninstall:
-	rm -rf /usr/local/bin/txma
+	rm -rf /usr/local/bin/$(binary)
 
 clean:
 	rm -rf *.o

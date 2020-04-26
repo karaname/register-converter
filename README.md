@@ -1,5 +1,5 @@
 ### Screenshots
 ###### Window
-![window](/screenshots/main_window.png)
-###### Glade
-![glade](/screenshots/structure.png)
+![window](/screenshots/conv_page.png)
+###### Another page
+![gen](/screenshots/gen_page.png)
