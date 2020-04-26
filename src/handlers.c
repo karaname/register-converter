@@ -21,7 +21,7 @@ void max_buffer_insert(GtkTextBuffer *text_buffer_FR, GtkTextIter *location)
 }
 
 /* Clear buffers and list store */
-void on_clear_button_clicked(GtkWidget *clear_buttn)
+void on_clear_button_clicked(GtkWidget *clear_button)
 {
   gtk_text_buffer_set_text(bf.text_buffer_FR, "", -1);
   gtk_text_buffer_set_text(bf.text_buffer_FR,
@@ -33,7 +33,7 @@ void on_clear_button_clicked(GtkWidget *clear_buttn)
 }
 
 /* Conversion uppercase text to lower */
-void on_lower_button_clicked(GtkWidget *lower_buttn)
+void on_lower_button_clicked(GtkWidget *lower_button)
 {
   buffer = get_text();
 
@@ -43,12 +43,12 @@ void on_lower_button_clicked(GtkWidget *lower_buttn)
 
     count(buffer);
   } else {
-    on_clear_button_clicked(bt.clear_buttn);
+    on_clear_button_clicked(bt.clear_button);
   }
 }
 
 /* Conversion lowercase text to upper */
-void on_upper_button_clicked(GtkWidget *upper_buttn)
+void on_upper_button_clicked(GtkWidget *upper_button)
 {
   buffer = get_text();
 
@@ -58,12 +58,12 @@ void on_upper_button_clicked(GtkWidget *upper_buttn)
 
     count(buffer);
   } else {
-    on_clear_button_clicked(bt.clear_buttn);
+    on_clear_button_clicked(bt.clear_button);
   }
 }
 
 /* Conversion lowercase to title case */
-void on_title_button_clicked(GtkWidget *title_buttn)
+void on_title_button_clicked(GtkWidget *title_button)
 {
   buffer = get_text();
 
@@ -78,12 +78,12 @@ void on_title_button_clicked(GtkWidget *title_buttn)
     }
     count(buffer);
   } else {
-    on_clear_button_clicked(bt.clear_buttn);
+    on_clear_button_clicked(bt.clear_button);
   }
 }
 
 /* Conversion text to reverse */
-void on_reverse_button_clicked(GtkWidget *rev_buttn)
+void on_reverse_button_clicked(GtkWidget *rev_button)
 {
   buffer = get_text();
 
@@ -95,6 +95,29 @@ void on_reverse_button_clicked(GtkWidget *rev_buttn)
 
     count(buffer);
   } else {
-    on_clear_button_clicked(bt.clear_buttn);
+    on_clear_button_clicked(bt.clear_button);
   }
+}
+
+/* Set random text - text_buffer_gen */
+void on_random_button_clicked(GtkWidget *random_button)
+{
+  guchar *rand_text;
+  rand_text = get_rand_text();
+  gtk_text_buffer_set_text(bf.text_buffer_gen, rand_text, -1);
+}
+
+/* Set random text - clipboard */
+void on_clipboard_button_clicked(GtkWidget *clipboard_button)
+{
+  GtkClipboard *clipboard;
+  GtkTextIter start, end;
+
+  gtk_text_buffer_get_start_iter(bf.text_buffer_gen, &start);
+  gtk_text_buffer_get_end_iter(bf.text_buffer_gen, &end);
+  guchar *text = gtk_text_buffer_get_text(bf.text_buffer_gen,
+    &start, &end, FALSE);
+
+  clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
+  gtk_clipboard_set_text(clipboard, text, -1);
 }

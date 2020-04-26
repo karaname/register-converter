@@ -18,7 +18,7 @@ guchar *get_text()
 }
 
 /* Checking text buffer for correctness */
-int check_ascii(guchar *b)
+gint check_ascii(guchar *b)
 {
   int status;
   for (int i = 0; b[i] != '\0'; i++) {

@@ -3,17 +3,36 @@
 #include "handlers.h"
 
 static void
-make_buttons_grid()
+make_gen_buttons_grid()
 {
-  gtk_grid_insert_row(GTK_GRID(gr.grid_buttns), 1);
-  gtk_grid_insert_column(GTK_GRID(gr.grid_buttns), 4);
-  gtk_grid_set_column_spacing(GTK_GRID(gr.grid_buttns), 50);
-  gtk_grid_set_column_homogeneous(GTK_GRID(gr.grid_buttns), TRUE);
-  gtk_widget_set_valign(GTK_WIDGET(gr.grid_buttns), GTK_ALIGN_CENTER);
+  gtk_grid_insert_row(GTK_GRID(gr.gen_buttons_grid), 1);
+  gtk_grid_insert_column(GTK_GRID(gr.gen_buttons_grid), 2);
+  gtk_grid_set_column_spacing(GTK_GRID(gr.gen_buttons_grid), 120);
+  gtk_grid_set_column_homogeneous(GTK_GRID(gr.gen_buttons_grid), TRUE);
+  gtk_widget_set_valign(GTK_WIDGET(gr.gen_buttons_grid), GTK_ALIGN_END);
 }
 
 static void
-make_initial_grid()
+make_gen_grid()
+{
+  gtk_grid_insert_row(GTK_GRID(gr.gen_grid), 2);
+  gtk_grid_insert_column(GTK_GRID(gr.gen_grid), 1);
+  gtk_grid_set_row_homogeneous(GTK_GRID(gr.gen_grid), TRUE);
+  gtk_grid_set_column_homogeneous(GTK_GRID(gr.gen_grid), TRUE);
+}
+
+static void
+make_buttons_grid()
+{
+  gtk_grid_insert_row(GTK_GRID(gr.grid_buttons), 1);
+  gtk_grid_insert_column(GTK_GRID(gr.grid_buttons), 4);
+  gtk_grid_set_column_spacing(GTK_GRID(gr.grid_buttons), 80);
+  gtk_grid_set_column_homogeneous(GTK_GRID(gr.grid_buttons), TRUE);
+  gtk_widget_set_valign(GTK_WIDGET(gr.grid_buttons), GTK_ALIGN_END);
+}
+
+static void
+make_main_grid()
 {
   gtk_grid_insert_row(GTK_GRID(gr.grid_main), 3);
   gtk_grid_insert_column(GTK_GRID(gr.grid_main), 2);
@@ -21,7 +40,6 @@ make_initial_grid()
   gtk_grid_set_column_spacing(GTK_GRID(gr.grid_main), 60);
   gtk_grid_set_row_homogeneous(GTK_GRID(gr.grid_main), TRUE);
   gtk_grid_set_column_homogeneous(GTK_GRID(gr.grid_main), TRUE);
-  gtk_container_set_border_width(GTK_CONTAINER(gr.grid_main), 50);
 }
 
 static void
@@ -87,19 +105,20 @@ make_common()
 {
   /* new objects */
   nt.notebook = gtk_notebook_new();
-  nt.label = gtk_label_new("???");
-
   nt.conv_page = gtk_label_new("Conversion");
   nt.gen_page = gtk_label_new("Generator");
 
   gr.grid_main = gtk_grid_new();
-  gr.grid_buttns = gtk_grid_new();
+  gr.grid_buttons = gtk_grid_new();
+  gr.gen_grid = gtk_grid_new();
+  gr.gen_buttons_grid = gtk_grid_new();
 
   frw.scrolled_window_FR = gtk_scrolled_window_new(NULL, NULL);
   bf.text_buffer_FR = gtk_text_buffer_new(NULL);
   frw.text_view_FR = gtk_text_view_new_with_buffer(bf.text_buffer_FR);
 
-  bt.clear_buttn = gtk_button_new_with_label("Clear");
+  bt.clear_button = gtk_button_new_with_label("Clear");
+  gtk_widget_set_valign(GTK_WIDGET(bt.clear_button), GTK_ALIGN_CENTER);
 
   tv.list_store = gtk_list_store_new(N_COLUMNS, G_TYPE_INT,
     G_TYPE_INT, G_TYPE_INT, G_TYPE_INT,
@@ -112,63 +131,79 @@ make_common()
   bf.text_buffer_SR = gtk_text_buffer_new(NULL);
   srw.text_view_SR = gtk_text_view_new_with_buffer(bf.text_buffer_SR);
 
-  bt.lower_buttn = gtk_button_new_with_label("Lower");
-  bt.upper_buttn = gtk_button_new_with_label("Upper");
-  bt.title_buttn = gtk_button_new_with_label("Title");
-  bt.rev_buttn = gtk_button_new_with_label("Reverse");
+  bt.lower_button = gtk_button_new_with_label("Lower");
+  bt.upper_button = gtk_button_new_with_label("Upper");
+  bt.title_button = gtk_button_new_with_label("Title");
+  bt.rev_button = gtk_button_new_with_label("Reverse");
+  bt.random_button = gtk_button_new_with_label("Random");
+  bt.clipboard_button = gtk_button_new_with_label("Clipboard");
 
+  gpw.gen_scrolled_window = gtk_scrolled_window_new(NULL, NULL);
+  bf.text_buffer_gen = gtk_text_buffer_new(NULL);
+  gpw.gen_text_view = gtk_text_view_new_with_buffer(bf.text_buffer_gen);
 
-  /* scrolled window first row */
+  /* properties */
   make_scrolled_window(frw.scrolled_window_FR, bf.text_buffer_FR, frw.text_view_FR, 1);
-
-  /* clear button */
-  gtk_container_set_border_width(GTK_CONTAINER(bt.clear_buttn), 40);
-  gtk_widget_set_valign(GTK_WIDGET(bt.clear_buttn), GTK_ALIGN_CENTER);
-  gtk_widget_set_tooltip_text(GTK_WIDGET(bt.clear_buttn), "Clear all buffers in this page");
-
-  /* tree view */
   make_tree_view();
-
-  /* scrolled window second row */
   make_scrolled_window(srw.scrolled_window_SR, bf.text_buffer_SR, srw.text_view_SR, 0);
+  make_scrolled_window(gpw.gen_scrolled_window, bf.text_buffer_gen, gpw.gen_text_view, 0);
 
-  /* cases buttons */
-  gtk_widget_set_tooltip_text(GTK_WIDGET(bt.lower_buttn), "Text conversion to lower");
-  gtk_widget_set_tooltip_text(GTK_WIDGET(bt.upper_buttn), "Text conversion to upper");
-  gtk_widget_set_tooltip_text(GTK_WIDGET(bt.title_buttn), "Text conversion to title");
-  gtk_widget_set_tooltip_text(GTK_WIDGET(bt.rev_buttn), "Text conversion to reverse");
-
-  /* grids */
   make_buttons_grid();
-  make_initial_grid();
+  make_main_grid();
 
+  make_gen_buttons_grid();
+  make_gen_grid();
+
+  /* tooltips */
+  gtk_widget_set_tooltip_text(GTK_WIDGET(bt.clear_button), "Clear all buffers in this page");
+  gtk_widget_set_tooltip_text(GTK_WIDGET(bt.lower_button), "Text conversion to lower");
+  gtk_widget_set_tooltip_text(GTK_WIDGET(bt.upper_button), "Text conversion to upper");
+  gtk_widget_set_tooltip_text(GTK_WIDGET(bt.title_button), "Text conversion to title");
+  gtk_widget_set_tooltip_text(GTK_WIDGET(bt.rev_button), "Text conversion to reverse");
+  gtk_widget_set_tooltip_text(GTK_WIDGET(bt.random_button), "Generate random text");
+  gtk_widget_set_tooltip_text(GTK_WIDGET(bt.clipboard_button), "Set text in clipboard");
+
+
+  /* ATTACH BUTTONS TO GRID_BUTTNS */
+  gtk_grid_attach(GTK_GRID(gr.grid_buttons), GTK_WIDGET(bt.lower_button), 0, 0, 1, 1);
+  gtk_grid_attach(GTK_GRID(gr.grid_buttons), GTK_WIDGET(bt.upper_button), 1, 0, 1, 1);
+  gtk_grid_attach(GTK_GRID(gr.grid_buttons), GTK_WIDGET(bt.title_button), 2, 0, 1, 1);
+  gtk_grid_attach(GTK_GRID(gr.grid_buttons), GTK_WIDGET(bt.rev_button), 3, 0, 1, 1);
 
   /* ATTACH WIDGETS TO GRID_MAIN */
   gtk_grid_attach(GTK_GRID(gr.grid_main), GTK_WIDGET(frw.scrolled_window_FR), 0, 0, 1, 1);
-  gtk_grid_attach(GTK_GRID(gr.grid_main), GTK_WIDGET(bt.clear_buttn), 1, 0, 1, 1);
+  gtk_grid_attach(GTK_GRID(gr.grid_main), GTK_WIDGET(bt.clear_button), 1, 0, 1, 1);
   gtk_grid_attach(GTK_GRID(gr.grid_main), GTK_WIDGET(tv.tree_view), 0, 1, 1, 1);
   gtk_grid_attach(GTK_GRID(gr.grid_main), GTK_WIDGET(srw.scrolled_window_SR), 1, 1, 1, 1);
-  gtk_grid_attach(GTK_GRID(gr.grid_main), GTK_WIDGET(gr.grid_buttns), 0, 2, 2, 1);
+  gtk_grid_attach(GTK_GRID(gr.grid_main), GTK_WIDGET(gr.grid_buttons), 0, 2, 2, 1);
   /* left, top, width, height */
 
-  /* ATTACH BUTTONS TO GRID_BUTTNS */
-  gtk_grid_attach(GTK_GRID(gr.grid_buttns), GTK_WIDGET(bt.lower_buttn), 0, 0, 1, 1);
-  gtk_grid_attach(GTK_GRID(gr.grid_buttns), GTK_WIDGET(bt.upper_buttn), 1, 0, 1, 1);
-  gtk_grid_attach(GTK_GRID(gr.grid_buttns), GTK_WIDGET(bt.title_buttn), 2, 0, 1, 1);
-  gtk_grid_attach(GTK_GRID(gr.grid_buttns), GTK_WIDGET(bt.rev_buttn), 3, 0, 1, 1);
+  /* ATTACH BUTTONS TO GEN_BUTTONS_GRID */
+  gtk_grid_attach(GTK_GRID(gr.gen_buttons_grid), GTK_WIDGET(bt.random_button), 0, 0, 1, 1);
+  gtk_grid_attach(GTK_GRID(gr.gen_buttons_grid), GTK_WIDGET(bt.clipboard_button), 1, 0, 1, 1);
+
+  /* ATTACH WIDGETS TO GEN_GRID */
+  gtk_grid_attach(GTK_GRID(gr.gen_grid), GTK_WIDGET(gpw.gen_scrolled_window), 0, 0, 1, 1);
+  gtk_grid_attach(GTK_GRID(gr.gen_grid), GTK_WIDGET(gr.gen_buttons_grid), 0, 1, 1, 1);
+
 
   /* notebook */
   gtk_notebook_set_tab_pos(GTK_NOTEBOOK(nt.notebook), GTK_POS_TOP);
   gtk_notebook_append_page(GTK_NOTEBOOK(nt.notebook), gr.grid_main, nt.conv_page);
-  gtk_notebook_append_page(GTK_NOTEBOOK(nt.notebook), nt.label, nt.gen_page);
+  gtk_notebook_append_page(GTK_NOTEBOOK(nt.notebook), gr.gen_grid, nt.gen_page);
 
-  /* background problem */
+
+  /* border problem */
   css_provider = gtk_css_provider_new();
   gtk_css_provider_load_from_path(css_provider, "css/theme.css", NULL);
   gtk_style_context_add_provider_for_screen(gdk_screen_get_default(),
     GTK_STYLE_PROVIDER(css_provider), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-  gtk_style_context_add_class(gtk_widget_get_style_context(frw.text_view_FR), "views_bg");
-  gtk_style_context_add_class(gtk_widget_get_style_context(srw.text_view_SR), "views_bg");
+  gtk_style_context_add_class(gtk_widget_get_style_context(frw.text_view_FR), "views_br");
+  gtk_style_context_add_class(gtk_widget_get_style_context(srw.text_view_SR), "views_br");
+  gtk_style_context_add_class(gtk_widget_get_style_context(gpw.gen_text_view), "views_br");
+  gtk_style_context_add_class(gtk_widget_get_style_context(gr.grid_main), "grid_main");
+  gtk_style_context_add_class(gtk_widget_get_style_context(gr.gen_grid), "gen_grid");
+  gtk_style_context_add_class(gtk_widget_get_style_context(bt.clear_button), "clear_button");
 
   return GTK_WIDGET(nt.notebook);
 }
@@ -188,11 +223,13 @@ int main(int argc, char **argv)
 
   g_signal_connect(G_OBJECT(window), "destroy", gtk_main_quit, NULL);
   g_signal_connect(G_OBJECT(bf.text_buffer_FR), "insert-text", G_CALLBACK(max_buffer_insert), NULL);
-  g_signal_connect(G_OBJECT(bt.lower_buttn), "clicked", G_CALLBACK(on_lower_button_clicked), NULL);
-  g_signal_connect(G_OBJECT(bt.upper_buttn), "clicked", G_CALLBACK(on_upper_button_clicked), NULL);
-  g_signal_connect(G_OBJECT(bt.title_buttn), "clicked", G_CALLBACK(on_title_button_clicked), NULL);
-  g_signal_connect(G_OBJECT(bt.rev_buttn), "clicked", G_CALLBACK(on_reverse_button_clicked), NULL);
-  g_signal_connect(G_OBJECT(bt.clear_buttn), "clicked", G_CALLBACK(on_clear_button_clicked), NULL);
+  g_signal_connect(G_OBJECT(bt.lower_button), "clicked", G_CALLBACK(on_lower_button_clicked), NULL);
+  g_signal_connect(G_OBJECT(bt.upper_button), "clicked", G_CALLBACK(on_upper_button_clicked), NULL);
+  g_signal_connect(G_OBJECT(bt.title_button), "clicked", G_CALLBACK(on_title_button_clicked), NULL);
+  g_signal_connect(G_OBJECT(bt.rev_button), "clicked", G_CALLBACK(on_reverse_button_clicked), NULL);
+  g_signal_connect(G_OBJECT(bt.clear_button), "clicked", G_CALLBACK(on_clear_button_clicked), NULL);
+  g_signal_connect(G_OBJECT(bt.random_button), "clicked", G_CALLBACK(on_random_button_clicked), NULL);
+  g_signal_connect(G_OBJECT(bt.clipboard_button), "clicked", G_CALLBACK(on_clipboard_button_clicked), NULL);
 
   gtk_main();
 

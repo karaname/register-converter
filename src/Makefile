@@ -1,4 +1,4 @@
-objects=main.o handlers.o count.o buffer.o
+objects=main.o handlers.o count.o buffer.o random.o
 pkg=`pkg-config --cflags --libs gtk+-3.0`
 gcc=gcc -g3
 
@@ -16,6 +16,9 @@ count.o: count.c
 
 buffer.o: buffer.c
 	$(gcc) -c buffer.c $(pkg)
+
+random.o: random.c
+	$(gcc) -c random.c $(pkg)
 
 install:
 	install txma /usr/local/bin/
