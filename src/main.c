@@ -19,6 +19,7 @@ make_gen_grid()
   gtk_grid_insert_column(GTK_GRID(gr.gen_grid), 1);
   gtk_grid_set_row_homogeneous(GTK_GRID(gr.gen_grid), TRUE);
   gtk_grid_set_column_homogeneous(GTK_GRID(gr.gen_grid), TRUE);
+  gtk_container_set_border_width(GTK_CONTAINER(gr.gen_grid), 50);
 }
 
 static void
@@ -40,6 +41,7 @@ make_main_grid()
   gtk_grid_set_column_spacing(GTK_GRID(gr.grid_main), 60);
   gtk_grid_set_row_homogeneous(GTK_GRID(gr.grid_main), TRUE);
   gtk_grid_set_column_homogeneous(GTK_GRID(gr.grid_main), TRUE);
+  gtk_container_set_border_width(GTK_CONTAINER(gr.grid_main), 50);
 }
 
 static void
@@ -68,6 +70,8 @@ make_tree_view()
     tv.renderer, "text", COLUMN_EVEN, NULL);
   gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW(tv.tree_view), COLUMN_ODD, "Odd",
     tv.renderer, "text", COLUMN_ODD, NULL);
+
+  gtk_container_add(GTK_CONTAINER(tv.scrolled_tree_window), tv.tree_view);
 }
 
 static void
@@ -75,6 +79,7 @@ make_scrolled_window(GtkWidget *scrolled_window,
 GtkTextBuffer *text_buffer, GtkWidget *text_view,
 gboolean value)
 {
+  gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(scrolled_window), GTK_SHADOW_IN);
   gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolled_window),
     GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
 
@@ -103,7 +108,6 @@ gboolean value)
 static GtkWidget *
 make_common()
 {
-  /* new objects */
   nt.notebook = gtk_notebook_new();
   nt.conv_page = gtk_label_new("Conversion");
   nt.gen_page = gtk_label_new("Generator");
@@ -119,10 +123,16 @@ make_common()
 
   bt.clear_button = gtk_button_new_with_label("Clear");
   gtk_widget_set_valign(GTK_WIDGET(bt.clear_button), GTK_ALIGN_CENTER);
+  gtk_container_set_border_width(GTK_CONTAINER(bt.clear_button), 30);
 
   tv.list_store = gtk_list_store_new(N_COLUMNS, G_TYPE_INT,
     G_TYPE_INT, G_TYPE_INT, G_TYPE_INT,
     G_TYPE_INT, G_TYPE_INT, G_TYPE_INT);
+
+  tv.scrolled_tree_window = gtk_scrolled_window_new(NULL, NULL);
+  gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(tv.scrolled_tree_window),
+    GTK_POLICY_NEVER, GTK_POLICY_NEVER);
+  gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(tv.scrolled_tree_window), GTK_SHADOW_IN);
 
   tv.tree_view = gtk_tree_view_new_with_model(GTK_TREE_MODEL(tv.list_store));
   tv.renderer = gtk_cell_renderer_text_new();
@@ -142,7 +152,6 @@ make_common()
   bf.text_buffer_gen = gtk_text_buffer_new(NULL);
   gpw.gen_text_view = gtk_text_view_new_with_buffer(bf.text_buffer_gen);
 
-  /* properties */
   make_scrolled_window(frw.scrolled_window_FR, bf.text_buffer_FR, frw.text_view_FR, 1);
   make_tree_view();
   make_scrolled_window(srw.scrolled_window_SR, bf.text_buffer_SR, srw.text_view_SR, 0);
@@ -173,7 +182,7 @@ make_common()
   /* ATTACH WIDGETS TO GRID_MAIN */
   gtk_grid_attach(GTK_GRID(gr.grid_main), GTK_WIDGET(frw.scrolled_window_FR), 0, 0, 1, 1);
   gtk_grid_attach(GTK_GRID(gr.grid_main), GTK_WIDGET(bt.clear_button), 1, 0, 1, 1);
-  gtk_grid_attach(GTK_GRID(gr.grid_main), GTK_WIDGET(tv.tree_view), 0, 1, 1, 1);
+  gtk_grid_attach(GTK_GRID(gr.grid_main), GTK_WIDGET(tv.scrolled_tree_window), 0, 1, 1, 1);
   gtk_grid_attach(GTK_GRID(gr.grid_main), GTK_WIDGET(srw.scrolled_window_SR), 1, 1, 1, 1);
   gtk_grid_attach(GTK_GRID(gr.grid_main), GTK_WIDGET(gr.grid_buttons), 0, 2, 2, 1);
   /* left, top, width, height */
@@ -191,19 +200,6 @@ make_common()
   gtk_notebook_set_tab_pos(GTK_NOTEBOOK(nt.notebook), GTK_POS_TOP);
   gtk_notebook_append_page(GTK_NOTEBOOK(nt.notebook), gr.grid_main, nt.conv_page);
   gtk_notebook_append_page(GTK_NOTEBOOK(nt.notebook), gr.gen_grid, nt.gen_page);
-
-
-  /* border problem */
-  css_provider = gtk_css_provider_new();
-  gtk_css_provider_load_from_path(css_provider, "css/theme.css", NULL);
-  gtk_style_context_add_provider_for_screen(gdk_screen_get_default(),
-    GTK_STYLE_PROVIDER(css_provider), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-  gtk_style_context_add_class(gtk_widget_get_style_context(frw.text_view_FR), "views_br");
-  gtk_style_context_add_class(gtk_widget_get_style_context(srw.text_view_SR), "views_br");
-  gtk_style_context_add_class(gtk_widget_get_style_context(gpw.gen_text_view), "views_br");
-  gtk_style_context_add_class(gtk_widget_get_style_context(gr.grid_main), "grid_main");
-  gtk_style_context_add_class(gtk_widget_get_style_context(gr.gen_grid), "gen_grid");
-  gtk_style_context_add_class(gtk_widget_get_style_context(bt.clear_button), "clear_button");
 
   return GTK_WIDGET(nt.notebook);
 }

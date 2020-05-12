@@ -28,6 +28,7 @@ struct Buttons {
 } bt;
 
 struct TreeView {
+  GtkWidget *scrolled_tree_window;
   GtkListStore *list_store;
   GtkWidget *tree_view;
   GtkTreeSelection *selection;
@@ -69,5 +70,4 @@ struct Notebook {
   GtkWidget *gen_page;
 } nt;
 
-GtkCssProvider *css_provider;
 GtkWidget *window;
