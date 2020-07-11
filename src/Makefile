@@ -12,6 +12,7 @@ $(BIN_NAME): $(OBJECTS)
 	$(GCC) $(LVLDB) $(PKG_CONFIG) -o $(BIN_NAME) $(OBJECTS)
 
 $(OBJDIR)/main.o: $(SRCDIR)/main.c
+	@test -e $(OBJDIR) || mkdir $(OBJDIR)
 	$(GCC) $(LVLDB) -c $(SRCDIR)/main.c -o $(OBJDIR)/main.o $(PKG_CONFIG)
 
 $(OBJDIR)/handlers.o: $(SRCDIR)/handlers.c
@@ -33,4 +34,4 @@ uninstall:
 	rm -rf /usr/local/bin/$(BIN_NAME)
 
 clean:
-	rm -rf $(OBJDIR)/*.o
+	rm -rf $(OBJDIR)

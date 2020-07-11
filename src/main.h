@@ -9,7 +9,7 @@ enum {
   N_COLUMNS
 };
 
-struct Dialog {
+extern struct Dialog {
   GtkWidget *dialog;
   GtkWidget *content_area;
   GtkWidget *message;
@@ -17,7 +17,7 @@ struct Dialog {
   GtkWidget *ok_button;
 } dg;
 
-struct Buttons {
+extern struct Buttons {
   GtkWidget *lower_button;
   GtkWidget *upper_button;
   GtkWidget *title_button;
@@ -27,7 +27,7 @@ struct Buttons {
   GtkWidget *clipboard_button;
 } bt;
 
-struct TreeView {
+extern struct TreeView {
   GtkWidget *scrolled_tree_window;
   GtkListStore *list_store;
   GtkWidget *tree_view;
@@ -36,38 +36,38 @@ struct TreeView {
   GtkCellRenderer *renderer;
 } tv;
 
-struct SecondRowWindow {
+extern struct SecondRowWindow {
   GtkWidget *scrolled_window_SR;
   GtkWidget *text_view_SR;
 } srw;
 
-struct FirstRowWindow {
+extern struct FirstRowWindow {
   GtkWidget *scrolled_window_FR;
   GtkWidget *text_view_FR;
 } frw;
 
-struct GenPageWindow {
+extern struct GenPageWindow {
   GtkWidget *gen_scrolled_window;
   GtkWidget *gen_text_view;
 } gpw;
 
-struct Buffers {
+extern struct Buffers {
   GtkTextBuffer *text_buffer_FR;
   GtkTextBuffer *text_buffer_SR;
   GtkTextBuffer *text_buffer_gen;
 } bf;
 
-struct Grids {
+extern struct Grids {
   GtkWidget *grid_main;
   GtkWidget *grid_buttons;
   GtkWidget *gen_grid;
   GtkWidget *gen_buttons_grid;
 } gr;
 
-struct Notebook {
+extern struct Notebook {
   GtkWidget *notebook;
   GtkWidget *conv_page;
   GtkWidget *gen_page;
 } nt;
 
-GtkWidget *window;
+extern GtkWidget *window;

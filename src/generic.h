@@ -1,4 +1,4 @@
-guchar *get_text();
-guchar *get_rand_text();
-gint check_ascii(guchar *b);
-void count(guchar *s);
+char *get_text();
+char *get_rand_text();
+int check_ascii(char *b);
+void count(char *s);

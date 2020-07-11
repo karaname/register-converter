@@ -4,21 +4,21 @@
 #define POPUP 1
 
 /* Return text from buffer - text_buffer_FR */
-guchar *get_text()
+char *get_text()
 {
   GtkTextIter start, end;
 
   gtk_text_buffer_get_start_iter(bf.text_buffer_FR, &start);
   gtk_text_buffer_get_end_iter(bf.text_buffer_FR, &end);
 
-  guchar *text = gtk_text_buffer_get_text(bf.text_buffer_FR,
+  char *text = gtk_text_buffer_get_text(bf.text_buffer_FR,
     &start, &end, FALSE);
 
   return text;
 }
 
 /* Checking text buffer for correctness */
-gint check_ascii(guchar *b)
+int check_ascii(char *b)
 {
   int status;
   for (int i = 0; b[i] != '\0'; i++) {

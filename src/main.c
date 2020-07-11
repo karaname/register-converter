@@ -1,6 +1,17 @@
 #include <gtk/gtk.h>
-#include "main.h"
 #include "handlers.h"
+#include "main.h"
+
+struct Dialog dg;
+struct Buttons bt;
+struct TreeView tv;
+struct SecondRowWindow srw;
+struct FirstRowWindow frw;
+struct GenPageWindow gpw;
+struct Buffers bf;
+struct Grids gr;
+struct Notebook nt;
+GtkWidget *window;
 
 static void
 make_gen_buttons_grid()

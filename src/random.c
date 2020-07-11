@@ -3,7 +3,7 @@
 #include <time.h>
 
 /* Generate random text */
-guchar *get_rand_text()
+char *get_rand_text()
 {
   char *t[16];
 
